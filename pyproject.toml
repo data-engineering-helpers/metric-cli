@@ -1,0 +1,13 @@
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metric_transpi"
+authors = [
+    {name = "Benjamin Joyen", email = "benjamin.joyen@decathlon.com"},
+]
+description = "Convert metric YAML into Tableau Pulse payload"
+requires-python = ">=3.8"
+dynamic = ["version"]
