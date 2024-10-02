@@ -1,0 +1,4 @@
+.pytest*
+__pycache*
+venv
+*.egg*

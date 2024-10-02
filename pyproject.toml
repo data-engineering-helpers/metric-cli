@@ -11,3 +11,9 @@ authors = [
 description = "Convert metric YAML into Tableau Pulse payload"
 requires-python = ">=3.8"
 dynamic = ["version"]
+dependencies = [
+    "click",
+]
+
+[tool.setuptools.packages]
+find = {} 
