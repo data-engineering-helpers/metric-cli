@@ -1,11 +1,11 @@
 from enum import Enum
 
 CALCULATION_METHOD = Enum('CalculationMethod', [
-    'COUNT', 
-    'COUNT_DISTINCT'
+    'count', 
+    'count_distinct'
 ])
 TIME_GRAINS = Enum('TimeGrains', [
-    'DAY'
+    'day'
 ])
 
 class Metric:
@@ -14,8 +14,8 @@ class Metric:
     labe = ""
     model = ""
     description = ""
-    calculation_method = CALCULATION_METHOD.COUNT
+    calculation_method = CALCULATION_METHOD.count
     expression = ""
     timestamp = ""
-    time_grains = TIME_GRAINS.DAY
+    time_grains = TIME_GRAINS.day
     dimensions = []

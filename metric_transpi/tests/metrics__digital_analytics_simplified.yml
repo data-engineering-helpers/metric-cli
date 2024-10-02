@@ -1,0 +1,42 @@
+version: 2
+
+metrics:
+  - name: number_of_sessions
+    label: Number total of sessions
+    model: ref('stg_tracking_ecom_events')
+    description: The count of distinct sessions
+
+    calculation_method: count_distinct
+    expression: session_id
+
+    timestamp: event_date
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - name
+      - provider
+      - country_code
+
+  - name: number_of_session_with_product_purchased
+    label: Number of session with product purchased
+    model: ref('stg_tracking_ecom_events')
+    description: Number of session with product purchased
+
+    calculation_method: count_distinct
+    expression: session_id
+
+    timestamp: event_date
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - event_date
+      - name
+      - provider
+      - country_code
+      - metadata.device_details.device_type
+
+    filters:
+      - field: name
+        operator: '='
+        value: "'order_completed'"
+        

@@ -14,6 +14,7 @@ It has several benefits :
 ## Features :
 
  - [] dbt metric to pulse
+ - [] JSON schema validator
  - [] metricflow to pulse
  - [] input metric to LookML (Looker)
 
