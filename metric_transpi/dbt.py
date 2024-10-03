@@ -4,21 +4,24 @@ from metric_transpi.metric import CALCULATION_METHOD
 
 
 def from_yaml(path):
-    # TODO document 
+    """
+    @return
+    """
     
     with open(path) as file:
         body = yaml.safe_load(file)
 
-    metric = Metric()
+    metrics = []
     for item in body["metrics"]:
-        pass
-    metric.name = body["metrics"][0]["name"]
-    metric.label = body["metrics"][0]["label"]
-    metric.model = body["metrics"][0]["model"].split("'")[1]
-    metric.description = body["metrics"][0]["description"]
-    metric.calculation_method = CALCULATION_METHOD[body["metrics"][0]["calculation_method"]]
-    metric.expression = body["metrics"][0]["expression"]
-    metric.timestamp = body["metrics"][0]["timestamp"]
-    metric.dimensions = body["metrics"][0]["dimensions"]
+        metric = Metric()
+        metric.name = item["name"]
+        metric.label = item["label"]
+        metric.model = item["model"].split("'")[1]
+        metric.description = item["description"]
+        metric.calculation_method = CALCULATION_METHOD[item["calculation_method"]]
+        metric.expression = item["expression"]
+        metric.timestamp = item["timestamp"]
+        metric.dimensions = item["dimensions"]
+        metrics.append(metric)
 
-    return metric
+    return metrics
