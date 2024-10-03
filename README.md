@@ -1,4 +1,4 @@
-Metric Transpiler
+![](assets/logo.png =50x50) Metric Transpiler
 ---
 
 ## Purpose :
