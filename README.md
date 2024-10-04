@@ -15,6 +15,8 @@ It has several benefits :
 
 - [ ] dbt metric to pulse
 - [ ] JSON schema validator
+- [ ] retrieve fields ID and datasource ID from Pulse API
+- [ ] check for breaking change in Pulse's API evolutions
 - [ ] metricflow to pulse
 - [ ] input metric to LookML (Looker)
 

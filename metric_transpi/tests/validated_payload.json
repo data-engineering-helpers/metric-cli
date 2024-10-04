@@ -1,0 +1,85 @@
+{
+    "name": "GMV Amount in Euros",
+    "description": "",
+    "specification": {
+        "datasource": {
+            "id": "d9b941fc-f134-4772-8088-b0e2b1f0f78b"
+        },
+        "basic_specification": {
+            "measure": {
+                "field": "02972a33-fc19-353f-a209-5a5b3f423d8d",
+                "aggregation": "AGGREGATION_SUM"
+            },
+            "time_dimension": {
+                "field": "6ee0624f-9f9a-3c73-a002-2c9748f5a04a"
+            },
+            "filters": []
+        },
+        "is_running_total": true
+    },
+    "extension_options": {
+        "allowed_dimensions": [
+            "1589d05d-f022-34de-ac30-b1cba2d1cd8f",
+            "1174a807-af10-38eb-8f8f-408a1da58ce9",
+            "c4861818-df8c-3267-bc6a-0086d885ffed"
+        ],
+        "allowed_granularities": [],
+        "offset_from_today": 0
+    },
+    "representation_options": {
+        "type": "NUMBER_FORMAT_TYPE_CURRENCY",
+        "sentiment_type": "SENTIMENT_TYPE_UP_IS_GOOD",
+        "row_level_id_field": {},
+        "row_level_name_field": {},
+        "currency_code": "CURRENCY_CODE_EUR"
+    },
+    "insights_options": {
+        "show_insights": true,
+        "settings": [
+            {
+                "type": "INSIGHT_TYPE_RISKY_MONOPOLY",
+                "disabled": false
+            },
+            {
+                "type": "INSIGHT_TYPE_TOP_DRIVERS",
+                "disabled": false
+            },
+            {
+                "type": "INSIGHT_TYPE_CURRENT_TREND",
+                "disabled": false
+            },
+            {
+                "type": "INSIGHT_TYPE_BOTTOM_CONTRIBUTORS",
+                "disabled": false
+            },
+            {
+                "type": "INSIGHT_TYPE_TOP_DETRACTORS",
+                "disabled": false
+            },
+            {
+                "type": "INSIGHT_TYPE_NEW_TREND",
+                "disabled": false
+            },
+            {
+                "type": "INSIGHT_TYPE_RECORD_LEVEL_OUTLIERS",
+                "disabled": true
+            }
+        ]
+    },
+    "comparisons": {
+        "comparisons": [
+            {
+                "compare_config": {
+                    "comparison": "TIME_COMPARISON_PREVIOUS_PERIOD"
+                },
+                "index": 0
+            },
+            {
+                "compare_config": {
+                    "comparison": "TIME_COMPARISON_YEAR_AGO_PERIOD"
+                },
+                "index": 1
+            }
+        ]
+    }
+}

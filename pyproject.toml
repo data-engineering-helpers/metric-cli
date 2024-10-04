@@ -12,7 +12,8 @@ description = "Convert metric YAML into Tableau Pulse payload"
 requires-python = ">=3.8"
 dynamic = ["version"]
 dependencies = [
-    "pyyaml"
+    "pyyaml",
+    "jinja2"
 ]
 
 [tool.setuptools.packages]
