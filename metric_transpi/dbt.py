@@ -1,11 +1,12 @@
 import yaml
 from metric_transpi import Metric
-from metric_transpi.metric import CALCULATION_METHOD
+from metric_transpi.metric import CalculationMethod, TimeGrains
 
 
 def from_yaml(path):
     """
-    @return
+    Load a yaml file which respects https://docs.getdbt.com/docs/build/metrics-overview
+    return a list of Metric objects
     """
     
     with open(path) as file:
@@ -18,10 +19,11 @@ def from_yaml(path):
         metric.label = item["label"]
         metric.model = item["model"].split("'")[1]
         metric.description = item["description"]
-        metric.calculation_method = CALCULATION_METHOD[item["calculation_method"]]
+        metric.calculation_method = CalculationMethod(item["calculation_method"])
         metric.expression = item["expression"]
         metric.timestamp = item["timestamp"]
         metric.dimensions = item["dimensions"]
+        metric.time_grains = [TimeGrains(grain) for grain in item['time_grains']]
         metrics.append(metric)
 
     return metrics
