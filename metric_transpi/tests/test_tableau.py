@@ -1,9 +1,6 @@
 
 import json
 from logging import log
-import logging
-
-import jsondiff
 from metric_transpi import tableau
 from metric_transpi.metric import Metric, TimeGrains
 
