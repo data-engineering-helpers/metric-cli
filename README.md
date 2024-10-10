@@ -1,6 +1,8 @@
 <img src="./assets/logo.png" width="5%" height="5%">     Metric Transpiler
 ---
 
+![badge](https://github.com/dktunited/metric-cli/actions/workflows/python-package.yml/badge.svg)
+
 ## Purpose :
 
 Convert the **dbt metric** (YAML) into a **Tableau Pulse** payload (JSON)
@@ -13,17 +15,27 @@ It has several benefits :
 
 ## Features :
 
-- [ ] dbt metric to pulse
+- [X] dbt metric to pulse Payload
+- [X] CLI
+- [ ] search recursively for all metrics YAML to compile
+- [ ] parameterize to inject Tableau's resources (datasource, columns hash)
 - [ ] JSON schema validator
 - [ ] retrieve fields ID and datasource ID from Pulse API
-- [ ] check for breaking change in Pulse's API evolutions
+- [ ] check for breaking change or consitency in Pulse's API evolution
 - [ ] metricflow to pulse
-- [ ] input metric to LookML (Looker)
+- [ ] dbt metrics to LookML (Looker)
+- [ ] Malloy for Databricks
 
  ## Contributing
 
 ```git
 git clone
 pip install -e .
+pip install pytest
 git checkout -b feat/my_feature_branch
 ```
+do your stuff, then test
+```
+pytest
+```
+Push your work and create a Pull Request

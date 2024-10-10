@@ -34,3 +34,13 @@ def test_from_yaml_should_iterate_to_return_all_metrics():
     assert r[0].name == 'number_of_sessions'
     assert r[1].name == 'number_of_session_with_product_purchased'
 
+def test_from_yaml_should_return_none_when_file_isnot_about_metric():
+    # given
+    example_yaml = "metric_transpi/tests/bad_formatted_metric.yml"
+
+    # when
+    r = from_yaml(path=example_yaml)
+    
+    # then
+    assert r is None
+

@@ -5,7 +5,7 @@ from metric_transpi import tableau
 from metric_transpi.metric import Metric, TimeGrains
 
 
-def test_to_pulse_payload_should_return_dic_with_pulse_structure():
+def test_to_pulse_payload_should_return_string_with_pulse_structure():
     # given
     metric = Metric()
     metric.name = "GMV Amount in Euros"

@@ -13,8 +13,12 @@ requires-python = ">=3.8"
 dynamic = ["version"]
 dependencies = [
     "pyyaml",
-    "jinja2"
+    "jinja2",
+    "click"
 ]
 
 [tool.setuptools.packages]
 find = {} 
+
+[project.scripts]
+metric-cli = "metric_transpi:cli.convert"

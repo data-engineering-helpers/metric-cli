@@ -8,7 +8,7 @@
       "basic_specification": {
         "measure": {
           "field": "{{ metric.expression }}",
-          "aggregation": "{{ metric.calculation_method }}"
+          "aggregation": {{ metric.calculation_method|jsonify }}
         },
         "time_dimension": {
           "field": "{{ metric.timestamp }}"

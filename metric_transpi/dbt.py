@@ -7,12 +7,16 @@ def from_yaml(path):
     """
     Load a yaml file which respects https://docs.getdbt.com/docs/build/metrics-overview
     return a list of Metric objects
+    return None if YAML does not contain 'metrics'
     """
     
     with open(path) as file:
         body = yaml.safe_load(file)
 
     metrics = []
+    if "metrics" not in body:
+        return None
+    
     for item in body["metrics"]:
         metric = Metric()
         metric.name = item["name"]

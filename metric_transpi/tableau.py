@@ -11,26 +11,6 @@ env = Environment(
 )
 env.filters['jsonify'] = json.dumps
 
-aggregation = Enum("AGGREGATION", [
-    "AGGREGATION_UNSPECIFIED",
-    "AGGREGATION_SUM",
-    "AGGREGATION_AVERAGE",
-    "AGGREGATION_MEDIAN",
-    "AGGREGATION_MAX",
-    "AGGREGATION_MIN",
-    "AGGREGATION_COUNT",
-    "AGGREGATION_COUNT_DISTINCT"
-])
-
-granularity	= Enum("GRANULARITY",[
-    "GRANULARITY_UNSPECIFIED",
-    "GRANULARITY_BY_YEAR",
-    "GRANULARITY_BY_QUARTER",
-    "GRANULARITY_BY_MONTH",
-    "GRANULARITY_BY_WEEK",
-    "GRANULARITY_BY_DAY"
-])
-
 def to_pulse_payload(metric: Metric) -> string:
     """
     Serialize a Metric object into a JSON using jinja2
@@ -38,3 +18,21 @@ def to_pulse_payload(metric: Metric) -> string:
     """
     template = env.get_template('payload.json.jinja')
     return template.render(metric=metric)
+
+class TableauAggregation(Enum):
+    AGGREGATION_UNSPECIFIED = "AGGREGATION_UNSPECIFIED"
+    AGGREGATION_SUM = "AGGREGATION_SUM"
+    AGGREGATION_AVERAGE = "AGGREGATION_AVERAGE"
+    AGGREGATION_MEDIAN = "AGGREGATION_MEDIAN"
+    AGGREGATION_MAX ="AGGREGATION_MAX"
+    AGGREGATION_MIN = "AGGREGATION_MIN"
+    AGGREGATION_COUNT = "AGGREGATION_COUNT"
+    AGGREGATION_COUNT_DISTINCT = "AGGREGATION_COUNT_DISTINCT"
+
+class TableauGranularity(Enum):
+    GRANULARITY_UNSPECIFIED = "GRANULARITY_UNSPECIFIED"
+    GRANULARITY_BY_YEAR= "GRANULARITY_BY_YEAR"
+    GRANULARITY_BY_QUARTER = "GRANULARITY_BY_QUARTER"
+    GRANULARITY_BY_MONTH = "GRANULARITY_BY_MONTH"
+    GRANULARITY_BY_WEEK = "GRANULARITY_BY_WEEK"
+    GRANULARITY_BY_DAY = "GRANULARITY_BY_DAY"
