@@ -34,6 +34,16 @@ def test_from_yaml_should_iterate_to_return_all_metrics():
     assert r[0].name == 'number_of_sessions'
     assert r[1].name == 'number_of_session_with_product_purchased'
 
+def test_from_yaml_should_extract_model_name_without_ref():
+    # given
+    example_yaml = "metric_transpi/tests/metrics__digital_analytics_simplified.yml"
+
+    # when
+    r = from_yaml(path=example_yaml)
+    
+    # then
+    assert r[0].model == 'stg_tracking_ecom_events'
+
 def test_from_yaml_should_return_none_when_file_isnot_about_metric():
     # given
     example_yaml = "metric_transpi/tests/bad_formatted_metric.yml"

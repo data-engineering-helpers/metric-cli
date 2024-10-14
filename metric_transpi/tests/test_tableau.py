@@ -1,8 +1,7 @@
 
 import json
-from logging import log
 from metric_transpi import tableau
-from metric_transpi.metric import Metric, TimeGrains
+from metric_transpi.metric import Metric
 
 
 def test_to_pulse_payload_should_return_string_with_pulse_structure():

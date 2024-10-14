@@ -22,3 +22,6 @@ find = {}
 
 [project.scripts]
 metric-cli = "metric_transpi:cli.convert"
+
+[tool.pytest.ini_options]
+addopts = "--cov=metric_transpi"

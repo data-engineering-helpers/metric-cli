@@ -3,6 +3,7 @@
 
 ![badge](https://github.com/dktunited/metric-cli/actions/workflows/python-package.yml/badge.svg)
 
+
 ## Purpose :
 
 Convert the **dbt metric** (YAML) into a **Tableau Pulse** payload (JSON)
@@ -22,6 +23,8 @@ It has several benefits :
 - [ ] JSON schema validator
 - [ ] retrieve fields ID and datasource ID from Pulse API
 - [ ] check for breaking change or consitency in Pulse's API evolution
+- [ ] badge for metric deployed in Tableau 
+![Static Badge](https://img.shields.io/badge/metric_sync-today-green?logo=tableau&style=flat)
 - [ ] metricflow to pulse
 - [ ] dbt metrics to LookML (Looker)
 - [ ] Malloy for Databricks

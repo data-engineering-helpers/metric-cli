@@ -2,3 +2,5 @@
 __pycache*
 venv
 *.egg*
+.DS_Store
+.coverage
