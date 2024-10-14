@@ -3,7 +3,6 @@
 
 ![badge](https://github.com/dktunited/metric-cli/actions/workflows/python-package.yml/badge.svg)
 
-
 ## Purpose :
 
 Convert the **dbt metric** (YAML) into a **Tableau Pulse** payload (JSON)
