@@ -15,7 +15,7 @@ def from_yaml(path):
 
     metrics = []
     if "metrics" not in body:
-        return None
+        raise ValueError('Reading YAML resulted in not finding a "metrics" section')
     
     for item in body["metrics"]:
         metric = Metric()

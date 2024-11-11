@@ -1,0 +1,6 @@
+{
+    "generatorName" : "python",
+    "outputDir" : "openapi_client",
+    "generateSourceCodeOnly": true,
+    "packageName": "openapi_client"
+}

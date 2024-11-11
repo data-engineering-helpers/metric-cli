@@ -1,5 +1,6 @@
 
 
+import pytest
 from metric_transpi.dbt import from_yaml
 from metric_transpi.metric import CalculationMethod, TimeGrains
 
@@ -44,13 +45,15 @@ def test_from_yaml_should_extract_model_name_without_ref():
     # then
     assert r[0].model == 'stg_tracking_ecom_events'
 
-def test_from_yaml_should_return_none_when_file_isnot_about_metric():
+def test_from_yaml_should_raise_exception_when_file_isnot_about_metric_or_badly_formatted():
     # given
     example_yaml = "metric_transpi/tests/bad_formatted_metric.yml"
 
     # when
-    r = from_yaml(path=example_yaml)
+    with pytest.raises(ValueError) as excinfo:
+        _ = from_yaml(path=example_yaml)
     
     # then
-    assert r is None
+    assert isinstance(excinfo.value, ValueError)
+    assert str(excinfo.value) == 'Reading YAML resulted in not finding a "metrics" section'
 

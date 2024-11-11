@@ -4,3 +4,6 @@ venv
 *.egg*
 .DS_Store
 .coverage
+.vscode
+example_openapi.py
+*.env
