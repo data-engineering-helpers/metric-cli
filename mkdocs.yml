@@ -1,0 +1,28 @@
+site_name: Metric CLI
+site_url: https://github.com/dktunited/metric-cli
+
+theme:
+  name: material
+  palette:
+    primary: white
+  font:
+    text: Inter 
+  logo: assets/logo.png
+  features:
+    - navigation.instant
+extra:
+  version:
+    provider: mike
+
+repo_url: https://github.com/dktunited/metric-cli
+
+plugins:
+- search
+- mkdocstrings
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

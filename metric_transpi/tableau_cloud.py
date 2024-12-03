@@ -1,5 +1,3 @@
-
-from ast import Dict, Tuple
 import json
 import requests
 
