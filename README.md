@@ -13,6 +13,8 @@ It has several benefits :
  - can integrate to a lot of BI tools, decoupling metric definition from the serving
  - link the metric to the code of dbt, using the powerfull dbt lineage
 
+[Read the doc](https://didactic-adventure-j7q3qwz.pages.github.io/)
+
 ## Features :
 
 - [X] dbt metric to pulse Payload
