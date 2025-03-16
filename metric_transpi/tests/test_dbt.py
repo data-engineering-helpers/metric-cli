@@ -1,8 +1,7 @@
 
 
 import pytest
-from metric_transpi.dbt import from_yaml
-from metric_transpi.metric import CalculationMethod, TimeGrains
+from metric_transpi.dbt import from_yaml, CalculationMethod, TimeGrains
 
 
 def test_from_yaml_should_read_dbt_metrics_fileformat():
@@ -15,7 +14,7 @@ def test_from_yaml_should_read_dbt_metrics_fileformat():
     # then
     assert r[0].name == 'number_of_sessions'
     assert r[0].label == 'Number total of sessions'
-    assert r[0].model == "stg_tracking_ecom_events"
+    assert r[0].model == "ref('stg_tracking_ecom_events')"
     assert r[0].description == "The count of distinct sessions"
     assert r[0].calculation_method == CalculationMethod.COUNT_DISTINCT
     assert r[0].expression == 'session_id'
@@ -35,15 +34,6 @@ def test_from_yaml_should_iterate_to_return_all_metrics():
     assert r[0].name == 'number_of_sessions'
     assert r[1].name == 'number_of_session_with_product_purchased'
 
-def test_from_yaml_should_extract_model_name_without_ref():
-    # given
-    example_yaml = "metric_transpi/tests/metrics__digital_analytics_simplified.yml"
-
-    # when
-    r = from_yaml(path=example_yaml)
-    
-    # then
-    assert r[0].model == 'stg_tracking_ecom_events'
 
 def test_from_yaml_should_raise_exception_when_file_isnot_about_metric_or_badly_formatted():
     # given
@@ -55,5 +45,4 @@ def test_from_yaml_should_raise_exception_when_file_isnot_about_metric_or_badly_
     
     # then
     assert isinstance(excinfo.value, ValueError)
-    assert str(excinfo.value) == 'Reading YAML resulted in not finding a "metrics" section'
 

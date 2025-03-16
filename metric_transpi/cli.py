@@ -1,60 +1,69 @@
+import json
 import rich_click as click
+from dotenv import load_dotenv
+import os
 
-from metric_transpi import dbt, tableau
-from metric_transpi.tableau_cloud import list_metric, signin
+from metric_transpi import dbt
+from metric_transpi.tableau_cloud import create_metric, list_metric, signin
 
 
 @click.group()
-def cli():
+@click.option("--env", prompt=True, default='')
+@click.pass_context
+def cli(ctx, env):
     """CLI entry point"""
-    pass
-
-@cli.command()
-@click.argument('base_path', type=click.Path(exists=True))
-def convert(base_path):
-    """
-    Convert a dbt metric YAML file (or recurisvely all dbt metrics' files) into a Tableau Cloud's metric definition payload (JSON)
-    to stdout
-    """
-    metrics = dbt.from_yaml(path=base_path)    
-    for m in metrics:
-        print(tableau.to_pulse_payload(m))
-
-@cli.command()
-@click.argument("pat_name", envvar='TABLEAU_PAT_NAME')
-@click.argument("pat_secret", envvar='TABLEAU_PAT_SECRET')
-@click.option("--host", envvar='TABLEAU_HOST', prompt=True)
-@click.option("--url-id", envvar='TABLEAU_SITE_URL_ID', prompt=True)
-def authent(pat_name, pat_secret, host, url_id):
-    """
-    Get the session token from authentication with Tableau Cloud using your Personal Access Token (PAT)
-
-    PAT_NAME is the name of the Personal Access Token in your account
-
-    PAT_SECRET is the hexa-secret generated at the creation of the Personal Access Token in your account
-
-    both variables could be specified by Envionement variables: TABLEAU_PAT_NAME, TABLEAU_PAT_SECRET
-    """
-    token, site_id = signin(
-        host=host,
-        site_url_id=url_id,
-        pat_token_name=pat_name,
-        pat_token_secret=pat_secret
+    click.echo(f'Loading {env}.env file')
+    load_dotenv(f"{env}.env")  
+    api_token, site_id = signin(
+        host=os.getenv('TABLEAU_HOST'),
+        site_url_id=os.getenv('TABLEAU_SITE_URL_ID'),
+        pat_token_name=os.getenv('TABLEAU_PAT_NAME'),
+        pat_token_secret=os.getenv('TABLEAU_PAT_SECRET')
     )
-    click.echo(f"export TABLEAU_API_TOKEN={token}")
-    click.echo(f"export TABLEAU_API_SITE_ID={site_id}")
+    ctx.obj = {
+        'api_token': api_token,
+        'site_id': site_id,
+        'host': os.getenv('TABLEAU_HOST')
+    }
 
 @cli.command()
-@click.argument("api_token", envvar='TABLEAU_API_TOKEN')
-@click.option("--host", envvar='TABLEAU_HOST', prompt=True)
-def list_metrics(api_token, host):
-    """display all available metrics in Pulse
+@click.pass_obj
+def list(creds):
+    """display all metrics currently deployed in Tableau Pulse
 
     Args:
         api_token (str): token provided by the authent command
     """
-    click.echo(
-        list_metric(
-            host=f"https://{host}",
-            api_token=api_token)
+    
+    json_result = json.loads(
+        s=list_metric(
+            host=f"https://{creds['host']}",
+            api_token=creds['api_token'])
     )
+    
+    json_pretty = json.dumps(json_result, indent=4) 
+    click.echo(
+        json_pretty
+    )
+
+@cli.command()
+@click.pass_obj
+@click.argument('yaml_path', type=click.Path(exists=True))
+def create(creds, yaml_path):
+    """create into Pulse all metrics found in the YAML file
+    
+    Args:
+        api_token (str): token provided by the authent command
+    """
+    
+    metrics=dbt.from_yaml(yaml_path)
+    responses = []
+    for m in metrics:
+        response = create_metric(creds['host'], creds['api_token'], m)
+        responses.append(response)
+    
+    json_pretty = json.dumps(responses, indent=4) 
+    click.echo(
+        json_pretty
+    )
+

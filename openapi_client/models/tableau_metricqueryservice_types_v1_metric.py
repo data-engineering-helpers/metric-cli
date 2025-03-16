@@ -33,7 +33,7 @@ class TableauMetricqueryserviceTypesV1Metric(BaseModel):
     definition_id: Optional[StrictStr] = None
     is_default: Optional[StrictBool] = None
     schema_version: Optional[StrictStr] = None
-    metric_version: Optional[StrictInt] = None
+    metric_version: Optional[StrictStr] = None
     goals: Optional[TableauMetricqueryserviceTypesV1MetricGoals] = None
     is_followed: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["id", "specification", "definition_id", "is_default", "schema_version", "metric_version", "goals", "is_followed"]

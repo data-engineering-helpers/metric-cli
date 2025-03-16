@@ -19,7 +19,7 @@ dependencies = [
     "urllib3 >= 1.25.3, < 3.0.0",
     "python-dateutil >= 2.8.2",
     "pydantic >= 2", 
-    "typing-extensions >= 4.7.1"
+    "python-dotenv"
 ]
 
 [tool.setuptools.packages]
@@ -30,3 +30,6 @@ metric-cli = "metric_transpi:cli.cli"
 
 [tool.pytest.ini_options]
 addopts = "--cov=metric_transpi"
+
+[pytest]
+pythonpath = "."

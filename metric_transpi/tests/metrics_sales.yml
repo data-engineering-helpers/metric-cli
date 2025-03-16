@@ -1,0 +1,22 @@
+version: 2
+
+metrics:
+  - name: cdm_total_gmv
+    label: GMV Amount In Euros
+    model: ref('obt_sales')
+    datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37
+    description: The total GMV amount recorded
+
+    calculation_method: count
+    expression: gmv_amount_euros
+
+    timestamp: gmv_recorded_at_date
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - economical_businessunit_country_code
+      - sport_univers_label
+      - transaction_touchpoint_name
+      - category_label
+      - economical_businessunit_name
+      - seller_type

@@ -1,7 +1,8 @@
 import yaml
-from metric_transpi import Metric
-from metric_transpi.metric import CalculationMethod, TimeGrains
 
+from pydantic import BaseModel
+from enum import Enum
+from typing import List, Optional
 
 def from_yaml(path):
     """
@@ -12,22 +13,41 @@ def from_yaml(path):
     
     with open(path) as file:
         body = yaml.safe_load(file)
-
-    metrics = []
-    if "metrics" not in body:
-        raise ValueError('Reading YAML resulted in not finding a "metrics" section')
-    
-    for item in body["metrics"]:
-        metric = Metric()
-        metric.name = item["name"]
-        metric.label = item["label"]
-        metric.model = item["model"].split("'")[1]
-        metric.description = item["description"]
-        metric.calculation_method = CalculationMethod(item["calculation_method"])
-        metric.expression = item["expression"]
-        metric.timestamp = item["timestamp"]
-        metric.dimensions = item["dimensions"]
-        metric.time_grains = [TimeGrains(grain) for grain in item['time_grains']]
-        metrics.append(metric)
-
+    metrics = Model(**body).metrics
     return metrics
+
+
+class CalculationMethod(str, Enum):
+    COUNT = 'count'
+    COUNT_DISTINCT = 'count_distinct'
+    SUM = 'sum'
+    AVERAGE = 'average'
+    MIN = 'min'
+    MAX = 'max'
+    MEDIAN = 'median'
+
+class TimeGrains(str, Enum):
+    DAY = 'day'
+    WEEK = 'week'
+    MONTH = 'month'
+    QUARTER = 'quarter'
+    YEAR = 'year'
+        
+class Metric(BaseModel):
+    name: str
+    model: str
+    label: Optional[str] = None
+    description: Optional[str] = None
+    datasource_id: Optional[str] = None
+    calculation_method: CalculationMethod
+    expression: str
+    timestamp: str
+    time_grains: List[TimeGrains]
+    dimensions: List[str]
+
+
+class Model(BaseModel):
+    version: int
+    metrics: List[Metric]
+
+        
