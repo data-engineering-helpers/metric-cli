@@ -2,10 +2,10 @@ from click.testing import CliRunner
 
 from metric_transpi.cli import cli
 
-def test_cli_create():
+def test_cli_deploy():
+
   runner = CliRunner()
-  result = runner.invoke(cli, ['create', 'metric_transpi/tests/metrics_sales.yml'], input='sandbox')
+  result = runner.invoke(cli, ['deploy', 'metric_transpi/tests/metrics_sales.yml'], input='metric_transpi/tests/test')
   print(result.output)
 
-  assert "Conflict" in result.output
-  #assert result.exit_code == 0
+  assert "metric_transpi/tests/test.env" in result.output

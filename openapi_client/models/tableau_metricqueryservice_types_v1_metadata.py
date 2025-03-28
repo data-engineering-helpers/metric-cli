@@ -23,7 +23,7 @@ from openapi_client.models.tableau_metricqueryservice_types_v1_metadata_user imp
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TableauMetricqueryserviceTypesV1Metadata(BaseModel):
+class MetricDefinitionMetadata(BaseModel):
     """
     TableauMetricqueryserviceTypesV1Metadata
     """ # noqa: E501

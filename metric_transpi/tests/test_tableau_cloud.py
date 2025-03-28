@@ -1,9 +1,15 @@
 
 import requests
 import json
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, Mock, call, patch
 from metric_transpi.dbt import CalculationMethod, Metric, TimeGrains
-from metric_transpi.tableau_cloud import from_metric_to_metricdef, list_metric, signin
+from metric_transpi.tableau_cloud import create_metric, list_metric, signin, update_metric
+from metric_transpi.translate import to_pulse
+from openapi_client.models.tableau_metricqueryservice_types_v1_definition import MetricDefinition
+from openapi_client.models.tableau_metricqueryservice_types_v1_metadata import MetricDefinitionMetadata
+from openapi_client.models.tableau_metricqueryservice_v1_create_definition_request import TableauMetricqueryserviceV1CreateDefinitionRequest
+from openapi_client.models.tableau_metricqueryservice_v1_list_definitions_response import TableauMetricqueryserviceV1ListDefinitionsResponse
+from openapi_client.models.tableau_metricqueryservice_v1_update_definition_request import TableauMetricqueryserviceV1UpdateDefinitionRequest
 
 @patch("requests.api")
 def test_sigin(mock_requests):
@@ -46,31 +52,74 @@ def test_list_metric(mock_openapi):
     # Given
     host = "tableau-api-host.toto"
     fake_token = "fake"
-    response = mock_openapi.return_value
-    response.to_json.return_value = {"definitions": [ {"metadata": {} } ]}
+    mock_openapi.return_value = TableauMetricqueryserviceV1ListDefinitionsResponse(
+        definitions=[
+            MetricDefinition(metadata=MetricDefinitionMetadata(name="toto"))
+        ]
+    )
     
     # When
-    json_result = list_metric(
+    definitions = list_metric(
         host=host, 
         api_token=fake_token
     )
 
     # Then
     assert mock_openapi.call_args == call(x_tableau_auth=fake_token, enable_sorting=True)
-    assert json_result == json.loads('{"definitions": [ {"metadata": {} } ]}')
+    assert definitions[0].metadata.name == "toto"
 
-
-# def test_create_metric():
-#     # Given
+@patch("openapi_client.api.metric_definitions_api.MetricDefinitionsApi.metric_query_service_create_definition")
+def test_create_metric(mock_openapi):
+    # Given
+    metric = Metric(name="turnover", model="dbt_model_sales", expression="amount", timestamp="transaction_date", 
+                    calculation_method="sum", time_grains=[TimeGrains.DAY], dimensions=["country", "store"])
+    definition = to_pulse(metric)
+    host = "tableau-api-host.toto"
+    fake_token = "fake"
+    req = TableauMetricqueryserviceV1CreateDefinitionRequest(
+        name=definition.metadata.name,
+                description=definition.metadata.description,
+                specification=definition.specification,
+                insights_options=definition.insights_options,
+                extension_options=definition.extension_options,
+                representation_options=definition.representation_options,
+                comparisons=definition.comparisons,
+    )
     
-#     # When
-#     json_result = create_metric(host='', api_token='')
+    # When
+    _ = create_metric(host=host, api_token=fake_token, definition=definition)
 
-#     # Then
-#     assert json_result == {}
+    # Then
+    mock_openapi.assert_called_once_with(x_tableau_auth=fake_token, tableau_metricqueryservice_v1_create_definition_request=req)
+
+@patch("openapi_client.api.metric_definitions_api.MetricDefinitionsApi.metric_query_service_update_definition")
+def test_update_metric(update_def_mock):
+    # Given
+    definition_id = '#1'
+    metric = Metric(name="turnover", model="dbt_model_sales", expression="amount", timestamp="transaction_date", 
+                    calculation_method="sum", time_grains=[TimeGrains.DAY], dimensions=["country", "store"])
+    definition = to_pulse(metric)
+    host = "tableau-api-host.toto"
+    fake_token = "fake"
+    req = TableauMetricqueryserviceV1UpdateDefinitionRequest(
+        definition_id=definition_id,
+        name=definition.metadata.name,
+        description=definition.metadata.description,
+        specification=definition.specification,
+        insights_options=definition.insights_options,
+        extension_options=definition.extension_options,
+        representation_options=definition.representation_options,
+        comparisons=definition.comparisons,
+    )
+    
+    # When
+    _ = update_metric(host=host, api_token=fake_token, definition=definition, definition_id=definition_id)
+
+    # Then
+    update_def_mock.assert_called_once_with(definition_id=definition_id, x_tableau_auth=fake_token, tableau_metricqueryservice_v1_update_definition_request=req)
 
 
-def test_from_metric_to_metricdef():
+def test_to_pulse():
     # Given
     metric = Metric(
         name='total_turnover',
@@ -93,11 +142,14 @@ def test_from_metric_to_metricdef():
     )
 
     # When
-    result = from_metric_to_metricdef(metric)
+    result = to_pulse(metric)
 
     # Then
     assert result.to_dict() == {
-        'name': 'total_turnover', 
+        'metadata': {
+            'name': 'total_turnover', 
+            'description': 'the sum of turnover on sales'
+        },
         'specification': {
             'datasource': {
                 'id': 'id_pulse_of_the_table_source'

@@ -149,6 +149,10 @@ class ApiException(OpenApiException):
 
         if http_resp.status == 404:
             raise NotFoundException(http_resp=http_resp, body=body, data=data)
+            raise ForbiddenException(http_resp=http_resp, body=body, data=data)
+
+        if http_resp.status == 409:
+            raise ConflictException(http_resp=http_resp, body=body, data=data)
 
         if 500 <= http_resp.status <= 599:
             raise ServiceException(http_resp=http_resp, body=body, data=data)
@@ -185,6 +189,10 @@ class ForbiddenException(ApiException):
 
 
 class ServiceException(ApiException):
+    pass
+
+
+class ConflictException(ApiException):
     pass
 
 

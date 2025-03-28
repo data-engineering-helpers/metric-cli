@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.tableau_metricqueryservice_types_v1_definition import TableauMetricqueryserviceTypesV1Definition
+from openapi_client.models.tableau_metricqueryservice_types_v1_definition import MetricDefinition
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class TableauMetricqueryserviceV1CreateDefinitionResponse(BaseModel):
     """
     TableauMetricqueryserviceV1CreateDefinitionResponse
     """ # noqa: E501
-    definition: Optional[TableauMetricqueryserviceTypesV1Definition] = None
+    definition: Optional[MetricDefinition] = None
     __properties: ClassVar[List[str]] = ["definition"]
 
     model_config = ConfigDict(
@@ -84,7 +84,7 @@ class TableauMetricqueryserviceV1CreateDefinitionResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "definition": TableauMetricqueryserviceTypesV1Definition.from_dict(obj["definition"]) if obj.get("definition") is not None else None
+            "definition": MetricDefinition.from_dict(obj["definition"]) if obj.get("definition") is not None else None
         })
         return _obj
 

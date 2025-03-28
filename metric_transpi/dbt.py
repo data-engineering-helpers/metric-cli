@@ -2,7 +2,7 @@ import yaml
 
 from pydantic import BaseModel
 from enum import Enum
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 def from_yaml(path):
     """
@@ -44,6 +44,14 @@ class Metric(BaseModel):
     timestamp: str
     time_grains: List[TimeGrains]
     dimensions: List[str]
+
+    def to_dict(self) -> Dict[str, Any]:
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude_none=True,
+        )
+        
+        return _dict
 
 
 class Model(BaseModel):

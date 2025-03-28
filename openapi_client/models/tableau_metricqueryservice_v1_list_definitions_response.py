@@ -19,7 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from openapi_client.models.tableau_metricqueryservice_types_v1_definition import TableauMetricqueryserviceTypesV1Definition
+from openapi_client.models.tableau_metricqueryservice_types_v1_definition import MetricDefinition
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +27,7 @@ class TableauMetricqueryserviceV1ListDefinitionsResponse(BaseModel):
     """
     TableauMetricqueryserviceV1ListDefinitionsResponse
     """ # noqa: E501
-    definitions: Optional[List[TableauMetricqueryserviceTypesV1Definition]] = None
+    definitions: Optional[List[MetricDefinition]] = None
     next_page_token: Optional[StrictStr] = None
     total_available: Optional[StrictInt] = Field(default=None, description="If available, specifies the total number of items in a requested list")
     offset: Optional[StrictInt] = None
@@ -91,7 +91,7 @@ class TableauMetricqueryserviceV1ListDefinitionsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "definitions": [TableauMetricqueryserviceTypesV1Definition.from_dict(_item) for _item in obj["definitions"]] if obj.get("definitions") is not None else None,
+            "definitions": [MetricDefinition.from_dict(_item) for _item in obj["definitions"]] if obj.get("definitions") is not None else None,
             "next_page_token": obj.get("next_page_token"),
             "total_available": obj.get("total_available"),
             "offset": obj.get("offset")

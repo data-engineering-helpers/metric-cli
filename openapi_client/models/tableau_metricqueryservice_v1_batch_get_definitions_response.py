@@ -20,7 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from openapi_client.models.tableau_metricqueryservice_types_v1_batch_get_metric_errors import TableauMetricqueryserviceTypesV1BatchGetMetricErrors
-from openapi_client.models.tableau_metricqueryservice_types_v1_definition import TableauMetricqueryserviceTypesV1Definition
+from openapi_client.models.tableau_metricqueryservice_types_v1_definition import MetricDefinition
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +28,7 @@ class TableauMetricqueryserviceV1BatchGetDefinitionsResponse(BaseModel):
     """
     TableauMetricqueryserviceV1BatchGetDefinitionsResponse
     """ # noqa: E501
-    definitions: Optional[List[TableauMetricqueryserviceTypesV1Definition]] = None
+    definitions: Optional[List[MetricDefinition]] = None
     errors: Optional[List[TableauMetricqueryserviceTypesV1BatchGetMetricErrors]] = None
     __properties: ClassVar[List[str]] = ["definitions", "errors"]
 
@@ -97,7 +97,7 @@ class TableauMetricqueryserviceV1BatchGetDefinitionsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "definitions": [TableauMetricqueryserviceTypesV1Definition.from_dict(_item) for _item in obj["definitions"]] if obj.get("definitions") is not None else None,
+            "definitions": [MetricDefinition.from_dict(_item) for _item in obj["definitions"]] if obj.get("definitions") is not None else None,
             "errors": [TableauMetricqueryserviceTypesV1BatchGetMetricErrors.from_dict(_item) for _item in obj["errors"]] if obj.get("errors") is not None else None
         })
         return _obj

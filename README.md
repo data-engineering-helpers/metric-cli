@@ -19,11 +19,12 @@ It has several benefits :
 
 - [X] dbt metric to pulse Payload
 - [X] CLI
+- [X] Generate [Python client](https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_versions.htm#per_resource_versioning) for Pulse API ([tableau openapi url](https://eu-west-1a.online.tableau.com/services/specifications/openapi))
 - [X] doc with [Mkdocs](https://squidfunk.github.io/mkdocs-material/publishing-your-site/) on Githup pages
+- [X] JSON schema validator [dbt manifest](https://schemas.getdbt.com/dbt/manifest/v9/index.html#metrics_additionalProperties_time_grains)
+- [ ] deploy metric instead of create or update : should looks more like terraform
 - [ ] search recursively for all metrics YAML to compile
 - [ ] parameterize to inject Tableau's resources (datasource, columns hash)
-- [ ] JSON schema validator [dbt manifest](https://schemas.getdbt.com/dbt/manifest/v9/index.html#metrics_additionalProperties_time_grains)
-- [X] Generate [Python client](https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_versions.htm#per_resource_versioning) for Pulse API ([tableau openapi url](https://eu-west-1a.online.tableau.com/services/specifications/openapi))
 - [ ] retrieve fields ID and datasource ID from Pulse API
 - [ ] check for breaking change or consitency in Pulse's API evolution
 - [ ] badge for metric deployed in Tableau 

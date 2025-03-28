@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.tableau_metricqueryservice_types_v1_metadata import TableauMetricqueryserviceTypesV1Metadata
+from openapi_client.models.tableau_metricqueryservice_types_v1_metadata import MetricDefinitionMetadata
 
 class TestTableauMetricqueryserviceTypesV1Metadata(unittest.TestCase):
     """TableauMetricqueryserviceTypesV1Metadata unit test stubs"""
@@ -25,7 +25,7 @@ class TestTableauMetricqueryserviceTypesV1Metadata(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> TableauMetricqueryserviceTypesV1Metadata:
+    def make_instance(self, include_optional) -> MetricDefinitionMetadata:
         """Test TableauMetricqueryserviceTypesV1Metadata
             include_optional is a boolean, when False only required
             params are included, when True both required and

@@ -17,6 +17,3 @@ class TableauGranularity(Enum):
     MONTH = "GRANULARITY_BY_MONTH"
     WEEK = "GRANULARITY_BY_WEEK"
     DAY = "GRANULARITY_BY_DAY"
-
-class PulseMetric:
-    pass

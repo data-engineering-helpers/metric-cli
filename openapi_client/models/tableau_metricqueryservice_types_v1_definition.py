@@ -23,17 +23,17 @@ from openapi_client.models.tableau_metricqueryservice_types_v1_comparisons impor
 from openapi_client.models.tableau_metricqueryservice_types_v1_definition_specification import TableauMetricqueryserviceTypesV1DefinitionSpecification
 from openapi_client.models.tableau_metricqueryservice_types_v1_extension_options import TableauMetricqueryserviceTypesV1ExtensionOptions
 from openapi_client.models.tableau_metricqueryservice_types_v1_insights_options import TableauMetricqueryserviceTypesV1InsightsOptions
-from openapi_client.models.tableau_metricqueryservice_types_v1_metadata import TableauMetricqueryserviceTypesV1Metadata
+from openapi_client.models.tableau_metricqueryservice_types_v1_metadata import MetricDefinitionMetadata
 from openapi_client.models.tableau_metricqueryservice_types_v1_metric import TableauMetricqueryserviceTypesV1Metric
 from openapi_client.models.tableau_metricqueryservice_types_v1_representation_options import TableauMetricqueryserviceTypesV1RepresentationOptions
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TableauMetricqueryserviceTypesV1Definition(BaseModel):
+class MetricDefinition(BaseModel):
     """
     TableauMetricqueryserviceTypesV1Definition
     """ # noqa: E501
-    metadata: Optional[TableauMetricqueryserviceTypesV1Metadata] = None
+    metadata: Optional[MetricDefinitionMetadata] = None
     specification: Optional[TableauMetricqueryserviceTypesV1DefinitionSpecification] = None
     extension_options: Optional[TableauMetricqueryserviceTypesV1ExtensionOptions] = None
     metrics: Optional[List[TableauMetricqueryserviceTypesV1Metric]] = None
@@ -119,7 +119,7 @@ class TableauMetricqueryserviceTypesV1Definition(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "metadata": TableauMetricqueryserviceTypesV1Metadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None,
+            "metadata": MetricDefinitionMetadata.from_dict(obj["metadata"]) if obj.get("metadata") is not None else None,
             "specification": TableauMetricqueryserviceTypesV1DefinitionSpecification.from_dict(obj["specification"]) if obj.get("specification") is not None else None,
             "extension_options": TableauMetricqueryserviceTypesV1ExtensionOptions.from_dict(obj["extension_options"]) if obj.get("extension_options") is not None else None,
             "metrics": [TableauMetricqueryserviceTypesV1Metric.from_dict(_item) for _item in obj["metrics"]] if obj.get("metrics") is not None else None,

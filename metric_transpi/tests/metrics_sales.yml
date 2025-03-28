@@ -4,7 +4,6 @@ metrics:
   - name: cdm_total_gmv
     label: GMV Amount In Euros
     model: ref('obt_sales')
-    datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37
     description: The total GMV amount recorded
 
     calculation_method: count
@@ -20,3 +19,6 @@ metrics:
       - category_label
       - economical_businessunit_name
       - seller_type
+
+    # Tableau Pulse specific
+    datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37
