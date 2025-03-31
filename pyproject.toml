@@ -20,7 +20,7 @@ dependencies = [
     "python-dateutil >= 2.8.2",
     "pydantic >= 2", 
     "python-dotenv",
-    "deepdiff"
+    "deepdiff",
 ]
 
 [tool.setuptools.packages]

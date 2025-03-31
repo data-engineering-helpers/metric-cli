@@ -1,9 +1,9 @@
 
 import requests
 import json
-from unittest.mock import MagicMock, Mock, call, patch
-from metric_transpi.dbt import CalculationMethod, Metric, TimeGrains
-from metric_transpi.tableau_cloud import create_metric, list_metric, signin, update_metric
+from unittest.mock import MagicMock, call, patch
+from metric_transpi.dbt import Metric, TimeGrains
+from metric_transpi.tableau_cloud import create_metric, delete_metric, list_metric, signin, update_metric
 from metric_transpi.translate import to_pulse
 from openapi_client.models.tableau_metricqueryservice_types_v1_definition import MetricDefinition
 from openapi_client.models.tableau_metricqueryservice_types_v1_metadata import MetricDefinitionMetadata
@@ -118,73 +118,26 @@ def test_update_metric(update_def_mock):
     # Then
     update_def_mock.assert_called_once_with(definition_id=definition_id, x_tableau_auth=fake_token, tableau_metricqueryservice_v1_update_definition_request=req)
 
-
-def test_to_pulse():
+@patch("openapi_client.api.metric_definitions_api.MetricDefinitionsApi.metric_query_service_delete_definition")
+def test_delete_metric(delete_def_mock):
     # Given
-    metric = Metric(
-        name='total_turnover',
-        model='sales_table',
-        label='Turnover',
-        description='the sum of turnover on sales',
-        datasource_id='id_pulse_of_the_table_source',
-        expression='amount',
-        calculation_method=CalculationMethod.SUM,
-        timestamp='date_transation',
-        dimensions=[
-                'business_unit',
-                'country',
-                'brand_name'
-        ],
-        time_grains=[
-                TimeGrains.DAY,
-                TimeGrains.WEEK
-        ]
-    )
+    host = "tableau-api-host.toto"
+    fake_token = "fake"
+    definition_id = '#1'
+    delete_def_mock.return_value.status = 201
 
-    # When
-    result = to_pulse(metric)
+    # when 
+    result = delete_metric(host=host, api_token=fake_token, definition_id=definition_id)
 
-    # Then
-    assert result.to_dict() == {
-        'metadata': {
-            'name': 'total_turnover', 
-            'description': 'the sum of turnover on sales'
-        },
-        'specification': {
-            'datasource': {
-                'id': 'id_pulse_of_the_table_source'
-            }, 
-            'basic_specification': {
-                'measure': {
-                    'field': 'amount',
-                    'aggregation': 'AGGREGATION_SUM'
-                }, 
-                'time_dimension':{
-                    'field': 'date_transation'
-                }
-            }, 
-            'is_running_total': True
-        },
-        'extension_options': {
-            'allowed_dimensions': [
-                'business_unit',
-                'country',
-                'brand_name'
-            ],
-            'allowed_granularities': [
-                'GRANULARITY_BY_DAY',
-                'GRANULARITY_BY_WEEK'
-            ]
-        },
-        'representation_options': {},
-        'insights_options': {},
-        "comparisons": {
-                "comparisons": [
-                    {
-                        "compare_config": {
-                            "comparison": "TIME_COMPARISON_PREVIOUS_PERIOD"
-                        }
-                    }
-                ]
-            }
-    }
+    # then
+    assert result
+    delete_def_mock.assert_called_once_with(definition_id=definition_id, x_tableau_auth=fake_token)
+
+
+## TEST todo ##
+# update should test if 
+#  * the metric has the same name --> incorrect
+#  * the metric has the same name but not the same field --> invalid but not forbidden
+#  * the metric has the field but not the same name --> forbidden
+#  * the metric has the field but not the same name nor the same aggreation method --> correct
+#  * the metric has not the same name nor the same field nor the same aggreation method --> correct

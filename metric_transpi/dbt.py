@@ -1,3 +1,4 @@
+from deepdiff import DeepDiff
 import yaml
 
 from pydantic import BaseModel
@@ -58,4 +59,11 @@ class Model(BaseModel):
     version: int
     metrics: List[Metric]
 
-        
+
+
+def diff(m1: Metric, m2: Metric):
+    return DeepDiff(
+        t1=m1.to_dict(),
+        t2=m2.to_dict(), 
+        exclude_paths=["model", "label"]
+    )

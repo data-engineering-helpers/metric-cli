@@ -83,7 +83,7 @@ def create_metric(host: str, api_token: str, definition: MetricDefinition)-> Met
         )
         return api_response.definition
 
-def update_metric(host: str, api_token: str, definition: Metric, definition_id: int)-> MetricDefinition:
+def update_metric(host: str, api_token: str, definition: Metric, definition_id: str)-> MetricDefinition:
     
     configuration = openapi_client.Configuration(host = host)
     x_tableau_auth = api_token
@@ -106,10 +106,23 @@ def update_metric(host: str, api_token: str, definition: Metric, definition_id: 
         )
         return api_response.definition
 
+def delete_metric(host: str, api_token: str, definition_id: str) -> bool:
+    configuration = openapi_client.Configuration(host = host)
+    x_tableau_auth = api_token
+
+    with openapi_client.ApiClient(configuration) as api_client:
+        api_instance = openapi_client.MetricDefinitionsApi(api_client)
+        api_instance.metric_query_service_delete_definition(
+            definition_id=definition_id, 
+            x_tableau_auth=x_tableau_auth
+        )
+        return True
+    return False
+
 class UniquenessViolation(ApiException):
     pass
 
-def match_metric(definitions: list[MetricDefinition], definition: MetricDefinition)-> MetricDefinition:
+def match_definition(definitions: list[MetricDefinition], definition: MetricDefinition)-> MetricDefinition:
     for remote_m in definitions:
         if remote_m.metadata.name == definition.metadata.name:
             return remote_m
