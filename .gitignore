@@ -8,3 +8,5 @@ venv
 example_openapi.py
 *.env
 poc
+dist
+build

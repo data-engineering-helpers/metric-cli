@@ -1,13 +1,24 @@
 Reference
 ===
 
-## authent
 
-Tableau Cloud PAT
+## translate
 
-## convert YAML
+::: metric_transpi.translate.to_pulse
+::: metric_transpi.translate.to_dbt
 
-## list metrics
+## dbt metrics
 
 ::: metric_transpi.dbt.Metric
-::: metric_transpi.tableau
+
+## Tableau metric defintion
+
+::: openapi_client.models.tableau_metricqueryservice_types_v1_definition.MetricDefinition
+
+## Tableau Cloud
+
+::: metric_transpi.tableau_cloud.signin
+
+::: metric_transpi.tableau_cloud.list_metric
+
+::: metric_transpi.tableau_cloud.update_metric

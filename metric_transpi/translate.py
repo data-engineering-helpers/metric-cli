@@ -18,6 +18,7 @@ from openapi_client.models.tableau_metricqueryservice_types_v1_comparisons_compa
 
 
 def to_pulse(m: Metric)-> MetricDefinition:
+    
     definition = MetricDefinition(
         metadata=MetricDefinitionMetadata(
             name=m.name,

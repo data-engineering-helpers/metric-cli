@@ -1,5 +1,5 @@
 site_name: metric-cli
-site_url: https://github.com/dktunited/metric-cli
+site_url: https://github.com/data-engineering-helpers/metric-cli
 
 theme:
   name: material
@@ -14,7 +14,7 @@ extra:
   version:
     provider: mike
 
-repo_url: https://github.com/dktunited/metric-cli
+repo_url: https://github.com/data-engineering-helpers/metric-cli
 
 plugins:
 - search
