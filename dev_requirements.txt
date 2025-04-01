@@ -3,3 +3,4 @@ pytest-cov
 mkdocs-material
 mkdocstrings-python
 flake8
+build

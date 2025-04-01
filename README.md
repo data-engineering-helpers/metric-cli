@@ -13,9 +13,9 @@ It has several benefits :
  - can integrate to a lot of BI tools, decoupling metric definition from the serving
  - define Tableau Pulse' metrics as code, leveraged by the powerfull dbt lineage
 
-[Read the doc](https://didactic-adventure-j7q3qwz.pages.github.io/)
+[Read the doc](https://data-engineering-helpers.github.io/metric-cli/)
 
-## Features :
+## Features
 
 - [X] Translate dbt metric into pulse Payload
 - [X] CLI managing authent with environment variables
@@ -43,7 +43,7 @@ pip install -e .
 pip install dev_requirements.txt
 git checkout -b feat/my_feature_branch
 ```
-do your stuff, then test
+do your stuff, then run tests
 ```
 pytest
 ```
