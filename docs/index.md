@@ -1,4 +1,4 @@
-# Welcome to Metric CLI
+# Overview
 
 ## Purpose
 
@@ -12,14 +12,18 @@ It has several benefits :
  - link the metric to the code of dbt, using the powerfull dbt lineage
 
 ## Commands
-                                                                                                                                                                      
-    Usage: metric-cli [OPTIONS] COMMAND [ARGS]...                                                                                                                                 
+ 
+    Usage: metric-cli [OPTIONS] COMMAND [ARGS]...                                                                                                                               
+                                                                                                                                                                             
+    Manage relationship between Dbt metrics and Tableau Pulse's metric                                                                                                          
                                                                                                                                                                                 
-    ╭─ Options ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-    │ --help      Show this message and exit.                                                                                                                                     │
-    ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Commands ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-    │ authent         Get the session token from authentication with Tableau Cloud using your Personal Access Token (PAT)                                                         │
-    │ convert         Convert a dbt metric YAML file (or recurisvely all dbt metrics' files) into a Tableau Cloud's metric definition payload (JSON) to stdout                    │
-    │ list-metrics                                                                                                                                                                │
-    ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+    ╭─ Options ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+    │ --env     TEXT                                                                                                                                                            │
+    │ --help          Show this message and exit.                                                                                                                               │
+    ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+    ╭─ Commands ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+    │ del           Delete a metric in Pulse                                                                                                                                    │
+    │ deploy        Deploy to Pulse all metrics found in the YAML file                                                                                                          │
+    │ diff          Diff a metric found in the YAML file against the metric definition deployed in Pulse                                                                        │
+    │ list          display all metrics currently deployed in Tableau Pulse                                                                                                     │
+    ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯

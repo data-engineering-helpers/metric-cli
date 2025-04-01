@@ -9,5 +9,5 @@ Tableau Cloud PAT
 
 ## list metrics
 
-::: metric_transpi.metric.Metric
-::: metric_transpi.tableau_cloud.signin
+::: metric_transpi.dbt.Metric
+::: metric_transpi.tableau
