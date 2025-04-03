@@ -1,7 +1,7 @@
 <img src="./assets/logo.png" width="3%" height="3%">     metric-cli
 ---
 
-![badge](https://github.com/dktunited/metric-cli/actions/workflows/python-package.yml/badge.svg)
+[![Python package](https://github.com/data-engineering-helpers/metric-cli/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/data-engineering-helpers/metric-cli/actions/workflows/python-package.yml)
 
 ## Purpose :
 
@@ -14,6 +14,40 @@ It has several benefits :
  - define Tableau Pulse' metrics as code, leveraged by the powerfull dbt lineage
 
 [Read the doc](https://data-engineering-helpers.github.io/metric-cli/)
+
+``` mermaid
+flowchart TD
+    yaml@{ shape: docs, label: "dbt metric.yml" }
+    subgraph metric-cli
+        deploy
+        del
+        diff
+        list
+    end 
+    Tableau_Pulse
+    subgraph Tableau_Pulse
+        list_definition
+        create_definition
+        update_definition
+        delete_definition
+        definition1@{ shape: notch-rect, label: "Metric Definition" }
+    end
+    yaml--read-->deploy
+    deploy-->match@{ shape: diamond, label: "match 
+    metric & definition" }
+    match--if not exists-->create_definition
+    match--if exists-->update_definition
+    match<--get current-->list_definition
+    yaml--read-->diff
+    del-->delete_definition
+    list-->list_definition
+    diff-->list_definition
+
+    list_definition-->definition1
+    delete_definition-->definition1
+    update_definition-->definition1
+    create_definition-->definition1
+```
 
 ## Features
 
@@ -34,6 +68,7 @@ It has several benefits :
 - [ ] badge for metric deployed in Tableau 
 ![Static Badge](https://img.shields.io/badge/metric_sync-today-green?logo=tableau&style=flat)
 - [ ] other metric format : metricflow, LookML (Looker), CubeJS
+
 
  ## Contributing
 
