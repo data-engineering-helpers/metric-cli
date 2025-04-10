@@ -21,6 +21,7 @@ def test_from_yaml_should_read_dbt_metrics_fileformat():
     assert r[0].timestamp == 'event_date'
     assert r[0].time_grains == [TimeGrains.DAY, TimeGrains.WEEK, TimeGrains.MONTH, TimeGrains.QUARTER, TimeGrains.YEAR]
     assert r[0].dimensions == ["name", "provider", "country_code"]
+    assert r[0].pulse_datasource_id == "id_of_the_datasrouce_tracking_ecom_events"
 
 def test_from_yaml_should_iterate_to_return_all_metrics():
     # given

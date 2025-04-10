@@ -10,7 +10,7 @@ def test_to_pulse():
         model='sales_table',
         label='Turnover',
         description='the sum of turnover on sales',
-        datasource_id='id_pulse_of_the_table_source',
+        pulse_datasource_id='id_pulse_of_the_table_source',
         expression='amount',
         calculation_method=CalculationMethod.SUM,
         timestamp='date_transation',

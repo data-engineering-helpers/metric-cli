@@ -4,6 +4,7 @@ metrics:
   - name: number_of_sessions
     label: Number total of sessions
     model: ref('stg_tracking_ecom_events')
+    pulse_datasource_id: id_of_the_datasrouce_tracking_ecom_events
     description: The count of distinct sessions
 
     calculation_method: count_distinct

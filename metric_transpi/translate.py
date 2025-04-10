@@ -26,7 +26,7 @@ def to_pulse(m: Metric)-> MetricDefinition:
         ),
         specification=def_spec(
             datasource=datasource(
-                id=m.datasource_id
+                id=m.pulse_datasource_id
             ),
             basic_specification=basic_spec(
                 measure=measure(
@@ -62,7 +62,7 @@ def to_dbt(mdf: MetricDefinition)->Metric:
         description=mdf.metadata.description,
         label='',
         model='',
-        datasource_id=mdf.specification.datasource.id,
+        pulse_datasource_id=mdf.specification.datasource.id,
         timestamp=mdf.specification.basic_specification.time_dimension.var_field,
         expression=mdf.specification.basic_specification.measure.var_field,
         time_grains=[TimeGrains[TableauGranularity(grain).name].value for grain in mdf.extension_options.allowed_granularities],

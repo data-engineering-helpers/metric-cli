@@ -39,7 +39,7 @@ class Metric(BaseModel):
     model: str
     label: Optional[str] = None
     description: Optional[str] = None
-    datasource_id: Optional[str] = None
+    pulse_datasource_id: Optional[str] = None
     calculation_method: CalculationMethod
     expression: str
     timestamp: str
