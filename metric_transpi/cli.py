@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 import os
 from metric_transpi import dbt, translate
 from metric_transpi import tableau_cloud
-
+from rich.table import Table
+from rich.console import Console
 
 @click.group()
 @click.option("--env", prompt=True, default='')
@@ -27,22 +28,48 @@ def cli(ctx, env):
 
 @cli.command()
 @click.pass_obj
-def list(creds):
-    """display all metrics currently deployed in Tableau Pulse
-    
-    Args:
-        api_token (str): token provided by the authent command
-    """
-    
-    json_result = [d.to_dict() for d in tableau_cloud.list_metric(
-            host=f"https://{creds['host']}",
-            api_token=creds['api_token']
-    )]
-    
-    json_pretty = json.dumps(json_result, indent=4) 
+def datasource(creds):
+    result = tableau_cloud.list_datasource(host=creds['host'], site_id=creds["site_id"] , api_token=creds["api_token"])
+
+    json_pretty = json.dumps(result, indent=4) 
     click.echo(
         json_pretty
     )
+
+@cli.command()
+@click.pass_obj
+@click.option("--format", default="table")
+def list(creds, format):
+    """display all metrics currently deployed in Tableau Pulse
+    
+    Args:
+        format (str): 'json' or 'table' are supported formats
+    """
+    
+    deployed_definitions = tableau_cloud.list_metric(
+            host=f"https://{creds['host']}",
+            api_token=creds['api_token']
+    )
+
+    if format == 'json':
+        json_result = [d.to_dict() for d in deployed_definitions]
+        
+        json_pretty = json.dumps(json_result, indent=4) 
+        click.echo(
+            json_pretty
+        )
+    elif format == 'table':
+        t = Table("name", "measure", "agg", "metric_version")
+        for d in deployed_definitions:
+            t.add_row(
+                d.metadata.name, 
+                d.specification.basic_specification.measure.var_field,
+                d.specification.basic_specification.measure.aggregation,
+                str(d.metadata.metric_version),
+            )
+
+        console = Console()
+        console.print(t)
 
 @cli.command()
 @click.pass_obj
@@ -103,9 +130,11 @@ def diff(creds, yaml_path):
             remote_m = translate.to_dbt(remote_d)
             if remote_m.name == local_m.name or (remote_m.expression == local_m.expression and remote_m.calculation_method != local_m.calculation_method):
                 diff = dbt.diff(local_m, remote_m)
+                if len(diff.affected_paths) == 0:
+                    continue
                 click.echo("Found differences between local and remote")
                 click.echo(
-                    f"  {local_m.name} : \n\t{diff.pretty()}"
+                    f"  {local_m.name} : \n\t{diff}"
                 )
                 conflict = True
                 click.echo(f"More details using the definition_id : {remote_d.metadata.id}")

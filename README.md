@@ -26,10 +26,10 @@ It has several benefits :
 - [x] deploy metric instead of create or update : should looks more like terraform
 - [x] diff local dbt metric vs Tableau's state
 - [x] delete a Tableau MetricDefinition
+- [ ] retrieve fields ID and datasource ID from Pulse API
+- [ ] read dbt manifest.json and match model FQDN with Tableau Pulse datasource to establish automatic relationship
 - [ ] import a Tableau Pulse' metric into a dbt metric (YAML)
 - [ ] search recursively for all metrics YAML to compile
-- [ ] parameterize to inject Tableau's resources (datasource, columns hash)
-- [ ] retrieve fields ID and datasource ID from Pulse API
 - [ ] check for breaking change or consitency in Pulse's API evolution
 - [ ] badge for metric deployed in Tableau 
 ![Static Badge](https://img.shields.io/badge/metric_sync-today-green?logo=tableau&style=flat)

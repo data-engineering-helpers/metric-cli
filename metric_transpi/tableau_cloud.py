@@ -126,3 +126,15 @@ def match_definition(definitions: list[MetricDefinition], definition: MetricDefi
     for remote_m in definitions:
         if remote_m.metadata.name == definition.metadata.name:
             return remote_m
+
+def list_datasource(host: str, site_id: str, api_token: str):
+    headers = {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        "X-Tableau-Auth": f"{api_token}"
+    }
+
+    req = requests.api.get(f"https://{host}/api/3.24/sites/{site_id}/datasources", headers=headers)
+    req.raise_for_status()
+    response = json.loads(req.content)
+    return response
