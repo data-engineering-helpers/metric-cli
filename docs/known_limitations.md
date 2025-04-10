@@ -10,3 +10,6 @@ For an existing metric, if you have made a mistake specifying the wrong aggregat
 to fix it, the `deploy` command will fail with a UniquenessViolationExecption.
 It is because the Tableau Pulse REST API does not allow to update the aggregation method, so we need to delete the metric which is already deployed
 before redo.
+
+#### 4. Filters are not implemented yet
+There are some differences between the implementation of filter in dbt comparing to the implementation of Tableau Pulse
