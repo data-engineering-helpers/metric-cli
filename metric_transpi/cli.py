@@ -27,20 +27,39 @@ def cli(ctx, env):
     }
 
 @cli.command()
+@click.option("--format", default="table")
 @click.pass_obj
-def datasource(creds):
+def src(creds, format):
+    """List all datasource existing in Tableau Pulse
+    
+    Args:
+        format (str): 'json' or 'table' are supported formats
+    """
     result = tableau_cloud.list_datasource(host=creds['host'], site_id=creds["site_id"] , api_token=creds["api_token"])
 
-    json_pretty = json.dumps(result, indent=4) 
-    click.echo(
-        json_pretty
-    )
+    if format == 'json':
+        json_pretty = json.dumps(result, indent=4) 
+        click.echo(
+            json_pretty
+        )
+    elif format == 'table':
+        t = Table("name", "id", "type", "isCertified")
+        for d in result["datasources"]["datasource"]:
+            t.add_row(
+                d["name"], 
+                d["id"],
+                d["type"],
+                str(d["isCertified"]),
+            )
+
+        console = Console()
+        console.print(t)
 
 @cli.command()
 @click.pass_obj
 @click.option("--format", default="table")
-def list(creds, format):
-    """display all metrics currently deployed in Tableau Pulse
+def ls(creds, format):
+    """List all metric definitions currently deployed in Tableau Pulse
     
     Args:
         format (str): 'json' or 'table' are supported formats
