@@ -58,7 +58,7 @@ def src(creds, format):
 @cli.command()
 @click.pass_obj
 @click.option("--format", default="table")
-def ls(creds, format):
+def list(creds, format):
     """List all metric definitions currently deployed in Tableau Pulse
     
     Args:
