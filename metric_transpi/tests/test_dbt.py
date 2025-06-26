@@ -6,7 +6,7 @@ from metric_transpi.dbt import from_yaml, CalculationMethod, TimeGrains
 
 def test_from_yaml_should_read_dbt_metrics_fileformat():
     # given
-    example_yaml = "metric_transpi/tests/metrics__digital_analytics_simplified.yml"
+    example_yaml = "metric_transpi/tests/metrics_for_utest.yml"
 
     # when
     r = from_yaml(path=example_yaml)
@@ -25,7 +25,7 @@ def test_from_yaml_should_read_dbt_metrics_fileformat():
 
 def test_from_yaml_should_iterate_to_return_all_metrics():
     # given
-    example_yaml = "metric_transpi/tests/metrics__digital_analytics_simplified.yml"
+    example_yaml = "metric_transpi/tests/metrics_for_utest.yml"
 
     # when
     r = from_yaml(path=example_yaml)

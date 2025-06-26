@@ -4,13 +4,14 @@ metrics:
   - name: cdm_total_gmv_euros
     label: GMV Amount In Euros
     model: ref('obt_sales')
+    pulse_datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37
     description: The total GMV amount recorded
 
     calculation_method: sum
     expression: gmv_amount_euros
 
     timestamp: gmv_recorded_at_date
-    time_grains: [day, week, month, quarter, year]
+    time_grains: [year, month]
 
     dimensions:
       - economical_businessunit_country_code
@@ -20,12 +21,11 @@ metrics:
       - economical_businessunit_name
       - seller_type
 
-    # Tableau Pulse specific
-    pulse_datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37
 
   - name: cdm_total_gmv_local_devise
     label: GMV Amount In Euros
     model: ref('obt_sales')
+    pulse_datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37
     description: The total GMV amount recorded using local devise
 
     calculation_method: sum
@@ -42,5 +42,3 @@ metrics:
       - economical_businessunit_name
       - seller_type
 
-    # Tableau Pulse specific
-    pulse_datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37

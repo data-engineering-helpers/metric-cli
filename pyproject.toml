@@ -21,6 +21,7 @@ dependencies = [
     "pydantic >= 2", 
     "python-dotenv",
     "deepdiff",
+    "pip_system_certs",
 ]
 
 [tool.setuptools.packages]

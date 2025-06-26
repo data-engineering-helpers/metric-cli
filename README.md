@@ -15,6 +15,23 @@ It has several benefits :
 
 [Read the doc](https://data-engineering-helpers.github.io/metric-cli/)
 
+## Use it
+
+Create a Personal Access Token in Tableau Pulse : [doc](https://help.tableau.com/current/server/fr-fr/security_personal_access_tokens.htm#cr%C3%A9er-des-jetons-d%E2%80%99acc%C3%A8s-personnels)
+
+Add a new environment file (```.env``` extansion) with the following environment variables (find an [example.env here](example.env))
+
+
+    TABLEAU_HOST=..
+    TABLEAU_SITE_URL_ID=..
+    TABLEAU_PAT_NAME=..
+    TABLEAU_PAT_SECRET=..
+
+Then install the cli
+
+    pip install metric-cli
+    metric-cli --env example list
+
 ## Features
 
 - [X] Translate dbt metric into pulse Payload
@@ -27,7 +44,7 @@ It has several benefits :
 - [x] diff local dbt metric vs Tableau's state
 - [x] delete a Tableau MetricDefinition
 - [ ] retrieve fields ID and datasource ID from Pulse API
-- [ ] read dbt manifest.json and match model FQDN with Tableau Pulse datasource to establish automatic relationship
+- [ ] read dbt manifest.json and match model FQN with Tableau Pulse datasource to establish automatic relationship
 - [ ] import a Tableau Pulse' metric into a dbt metric (YAML)
 - [ ] search recursively for all metrics YAML to compile
 - [ ] check for breaking change or consitency in Pulse's API evolution
