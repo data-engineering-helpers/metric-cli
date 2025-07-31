@@ -2,43 +2,32 @@ version: 2
 
 metrics:
   - name: cdm_total_gmv_euros
-    label: GMV Amount In Euros
+    label: GMV Amount Euros
     model: ref('obt_sales')
-    pulse_datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37
-    description: The total GMV amount recorded
+    description: The total GMV amount recorded converted in €
 
     calculation_method: sum
     expression: gmv_amount_euros
-
-    timestamp: gmv_recorded_at_date
-    time_grains: [year, month]
-
-    dimensions:
-      - economical_businessunit_country_code
-      - sport_univers_label
-      - transaction_touchpoint_name
-      - category_label
-      - economical_businessunit_name
-      - seller_type
-
-
-  - name: cdm_total_gmv_local_devise
-    label: GMV Amount In Euros
-    model: ref('obt_sales')
-    pulse_datasource_id: bb4c980a-41b7-4f77-b0cd-3e6ea9f88c37
-    description: The total GMV amount recorded using local devise
-
-    calculation_method: sum
-    expression: gmv_amount
 
     timestamp: gmv_recorded_at_date
     time_grains: [day, week, month, quarter, year]
 
     dimensions:
       - economical_businessunit_country_code
-      - sport_univers_label
-      - transaction_touchpoint_name
-      - category_label
+      - economical_businessunit_id
       - economical_businessunit_name
+      - economical_businessunit_gln
+      - brand_name
+      - customer_identification_type
+      - category_label
+      - retail_univers_label
+      - sport_univers_label
+      - retail_family_label
+      - sport_family_label
+      - retail_department_label
+      - sport_department_label
+      - retail_sub_department_label
+      - sport_sub_department_label
+      - product_nature_label
+      - model_label
       - seller_type
-
