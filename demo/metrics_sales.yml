@@ -1,7 +1,7 @@
 version: 2
 
 metrics:
-  - name: cdm_total_gmv_euros
+  - name: gmv_amount_euros
     label: GMV Amount Euros
     model: ref('obt_sales')
     description: The total GMV amount recorded converted in €
